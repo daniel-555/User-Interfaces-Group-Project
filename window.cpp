@@ -6,7 +6,7 @@
 #include "window.hpp"
 #include "stats.hpp"
 
-static const int MIN_WIDTH = 620;
+static const int MIN_WIDTH = 920;
 
 
 QuakeWindow::QuakeWindow(): QMainWindow(), statsDialog(nullptr)
@@ -158,10 +158,6 @@ void QuakeWindow::openCSV()
 
   fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
   table->resizeColumnsToContents();
-
-  if (statsDialog != nullptr && statsDialog->isVisible()) {
-    statsDialog->update(model.meanDepth(), model.meanMagnitude());
-  }
 }
 
 
@@ -171,8 +167,6 @@ void QuakeWindow::displayStats()
     if (statsDialog == nullptr) {
       statsDialog = new StatsDialog(this);
     }
-
-    statsDialog->update(model.meanDepth(), model.meanMagnitude());
 
     statsDialog->show();
     statsDialog->raise();

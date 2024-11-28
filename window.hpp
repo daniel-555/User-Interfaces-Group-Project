@@ -28,7 +28,7 @@ class QuakeWindow: public QMainWindow
     void addFileMenu();
     void addHelpMenu();
 
-    QuakeModel model;          // data model used by table
+    SampleModel model;          // data model used by table
     QString dataLocation;      // location of CSV data files
     QComboBox* significance;   // selector for quake feed significance level
     QComboBox* period;         // selector for quake feed time period

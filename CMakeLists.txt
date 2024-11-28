@@ -10,7 +10,7 @@ qt_standard_project_setup()
 
 qt_add_executable(quaketool
     main.cpp
-    quake.cpp
+    sample.cpp
     dataset.cpp
     model.cpp
     window.cpp
