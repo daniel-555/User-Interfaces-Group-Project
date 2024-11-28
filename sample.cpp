@@ -1,4 +1,5 @@
-// COMP2811 Coursework 1 sample solution: Quake class
+// COMP2811 Coursework 3 Sample class
+// Based on Previous courseworks quake class
 
 #include <stdexcept>
 #include <sstream>
