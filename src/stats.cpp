@@ -1,7 +1,7 @@
 // COMP2811 Coursework 2 sample solution: dialog
 
 #include <QtWidgets>
-#include "stats.hpp"
+#include "../include/stats.hpp"
 
 
 StatsDialog::StatsDialog(QWidget* parent): QDialog(parent)

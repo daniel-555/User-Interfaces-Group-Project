@@ -8,13 +8,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 qt_standard_project_setup()
 
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
 qt_add_executable(quaketool
-    main.cpp
-    sample.cpp
-    dataset.cpp
-    model.cpp
-    window.cpp
-    stats.cpp
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/sample.cpp
+    ${CMAKE_SOURCE_DIR}/src/dataset.cpp
+    ${CMAKE_SOURCE_DIR}/src/model.cpp
+    ${CMAKE_SOURCE_DIR}/src/window.cpp
+    ${CMAKE_SOURCE_DIR}/src/stats.cpp
+    ${CMAKE_SOURCE_DIR}/include/window.hpp
 )
 
 target_link_libraries(quaketool PRIVATE Qt6::Widgets)

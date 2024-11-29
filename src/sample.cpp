@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 #include <sstream>
-#include "sample.hpp"
+#include "../include/sample.hpp"
 
 using namespace std;
 

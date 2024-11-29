@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 #include <sstream>
-#include "quake.hpp"
+#include "../include/quake.hpp"
 
 using namespace std;
 

@@ -5,10 +5,10 @@
 #include <string>
 #include <iostream>
 
-static const double MIN_LATITUDE = -90.0;
-static const double MAX_LATITUDE = 90.0;
-static const double MIN_LONGITUDE = -180.0;
-static const double MAX_LONGITUDE = 180.0;
+constexpr auto MIN_LATITUDE = -90.0;
+constexpr auto MAX_LATITUDE = 90.0;
+constexpr auto MIN_LONGITUDE = -180.0;
+constexpr auto MAX_LONGITUDE = 180.0;
 
 class Quake
 {

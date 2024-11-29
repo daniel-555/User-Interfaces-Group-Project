@@ -1,8 +1,8 @@
 // COMP2811 Coursework 1 sample solution: QuakeDataset class
 
 #include <stdexcept>
-#include "dataset.hpp"
-#include "csv.hpp"
+#include "../include/dataset.hpp"
+#include "../include/csv.hpp"
 
 using namespace std;
 

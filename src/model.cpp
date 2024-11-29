@@ -1,6 +1,6 @@
 // COMP2811 Coursework 2: data model
 
-#include "model.hpp"
+#include "../include/model.hpp"
 
 
 void SampleModel::updateFromFile(const QString& filename)

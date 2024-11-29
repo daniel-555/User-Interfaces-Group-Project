@@ -1,6 +1,8 @@
 // COMP2811 Coursework 2 sample solution: main window
 
 #include <QtWidgets>
+#include <stdexcept>
+#include <iostream>
 #include "window.hpp"
 #include "stats.hpp"
 
@@ -171,7 +173,6 @@ void QuakeWindow::displayStats()
     statsDialog->activateWindow();
   }
 }
-
 
 void QuakeWindow::about()
 {
