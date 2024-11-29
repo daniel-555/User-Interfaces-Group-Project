@@ -1,8 +1,6 @@
 // COMP2811 Coursework 1 sample solution: QuakeDataset class
 
 #include <stdexcept>
-#include <algorithm>
-#include <numeric>
 #include "dataset.hpp"
 #include "csv.hpp"
 

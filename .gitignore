@@ -3,3 +3,6 @@ build/
 
 # Folder that contains the dataset
 data/
+
+# Cache folder created by cmake
+.cache/
