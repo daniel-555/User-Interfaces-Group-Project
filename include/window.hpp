@@ -10,46 +10,48 @@ class QComboBox;
 class QLabel;
 class QPushButton;
 class StatsDialog;
+class QStackedWidget;
 
 class SamplesPage;
 class HomePage;
 class OverviewPage;
 
-class QuakeWindow: public QMainWindow
+class QuakeWindow : public QMainWindow
 {
   Q_OBJECT
 
-  public:
-    QuakeWindow();
+public:
+  QuakeWindow();
 
-  private:
-    void createMainWidget();
-    void createFileSelectors();
-    void createButtons();
-    void createToolBar();
-    void createStatusBar();
-    void addFileMenu();
-    void addHelpMenu();
+private:
+  void createMainWidget();
+  void createFileSelectors();
+  void createButtons();
+  void createToolBar();
+  void createStatusBar();
+  void addFileMenu();
+  void addHelpMenu();
 
-    QString dataLocation;      // location of CSV data files
-    QLabel* fileInfo;          // status bar info on current file
-    StatsDialog* statsDialog;  // dialog to display stats
+  QString dataLocation;     // location of CSV data files
+  QLabel *fileInfo;         // status bar info on current file
+  StatsDialog *statsDialog; // dialog to display stats
 
-    HomePage* homePage;
-    SamplesPage* samplesPage;
-    OverviewPage* overviewPage;
+  QStackedWidget *pages;
+  HomePage *homePage;
+  SamplesPage *samplesPage;
+  OverviewPage *overviewPage;
 
-    QPushButton* homePageButton;
-    QPushButton* samplesPageButton;
-    QPushButton* overviewPageButton;
+  QPushButton *homePageButton;
+  QPushButton *samplesPageButton;
+  QPushButton *overviewPageButton;
 
-  private slots:
-    void setDataLocation();
-    void openCSV();
-    void displayStats();
-    void about();
+private slots:
+  void setDataLocation();
+  void openCSV();
+  void displayStats();
+  void about();
 
-    void showHomePage();
-    void showSamplesPage();
-    void showOverviewPage();
+  void showHomePage();
+  void showSamplesPage();
+  void showOverviewPage();
 };
