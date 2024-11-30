@@ -70,37 +70,33 @@ void MainWindow::createToolBar()
 {
   QToolBar *toolBar = new QToolBar();
 
-  // QLabel* significanceLabel = new QLabel("Significance");
-  // significanceLabel->setAlignment(Qt::AlignVCenter);
-  // toolBar->addWidget(significanceLabel);
-  // toolBar->addWidget(significance);
-
-  // QLabel* periodLabel = new QLabel("Period");
-  // periodLabel->setAlignment(Qt::AlignVCenter);
-  // toolBar->addWidget(periodLabel);
-  // toolBar->addWidget(period);
-
-  // toolBar->addSeparator();
-
-  // toolBar->addWidget(loadButton);
-  // toolBar->addWidget(statsButton);
-
   QLabel *titleLabel = new QLabel("<h2>Water Pollutants<br/>App</h2>");
   titleLabel->setAlignment(Qt::AlignHCenter);
 
   toolBar->setMinimumWidth(MIN_TOOLBAR_WIDTH);
 
-  QWidget *navButtonGroup = new QWidget();
+  // Create the navigation button group
+  QGroupBox *navButtonGroup = new QGroupBox();
   QVBoxLayout *navButtonLayout = new QVBoxLayout();
   navButtonLayout->setAlignment(Qt::AlignHCenter);
-  navButtonGroup->setLayout(navButtonLayout);
-
-  toolBar->addWidget(titleLabel);
-  toolBar->addSeparator();
   navButtonLayout->addWidget(homePageButton);
   navButtonLayout->addWidget(overviewPageButton);
   navButtonLayout->addWidget(samplesPageButton);
+  navButtonGroup->setLayout(navButtonLayout);
+
+  // Create the load document group
+  QGroupBox *loadFileGroup = new QGroupBox();
+  QVBoxLayout *loadFileLayout = new QVBoxLayout();
+  loadFileLayout->addWidget(test);
+  loadFileLayout->addStretch(1);
+  loadFileGroup->setLayout(loadFileLayout);
+  loadFileGroup->setAlignment(Qt::AlignBottom);
+
+  // Add the components to the toolbar
+  toolBar->addWidget(titleLabel);
+  toolBar->addSeparator();
   toolBar->addWidget(navButtonGroup);
+  toolBar->addWidget(loadFileGroup);
 
   addToolBar(Qt::LeftToolBarArea, toolBar);
 }
@@ -154,28 +150,31 @@ void MainWindow::setDataLocation()
 
 void MainWindow::openCSV()
 {
-  // if (dataLocation == "") {
-  //   QMessageBox::critical(this, "Data Location Error",
-  //     "Data location has not been set!\n\n"
-  //     "You can specify this via the File menu."
-  //   );
-  //   return;
-  // }
+  if (dataLocation == "")
+  {
+    QMessageBox::critical(this, "Data Location Error",
+                          "Data location has not been set!\n\n"
+                          "You can specify this via the File menu.");
+    return;
+  }
 
   // auto filename = QString("%1_%2.csv")
-  //   .arg(significance->currentText()).arg(period->currentText());
+  // .arg(significance->currentText()).arg(period->currentText());
 
-  // auto path = dataLocation + "/" + filename;
+  auto filename = QString("Y-2024.csv");
+  auto path = dataLocation + "/" + filename;
 
-  // try {
+  // try
+  // {
   //   model.updateFromFile(path);
   // }
-  // catch (const std::exception& error) {
+  // catch (const std::exception &error)
+  // {
   //   QMessageBox::critical(this, "CSV File Error", error.what());
   //   return;
   // }
 
-  // fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
+  fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
   // table->resizeColumnsToContents();
 }
 
