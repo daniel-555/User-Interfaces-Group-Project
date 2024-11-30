@@ -5,8 +5,9 @@
 #include <iostream>
 #include "window.hpp"
 #include "stats.hpp"
+#include "samplespage.hpp"
 
-static const int MIN_WIDTH = 920;
+static const int MIN_WIDTH = 950;
 
 
 QuakeWindow::QuakeWindow(): QMainWindow(), statsDialog(nullptr)
@@ -26,13 +27,9 @@ QuakeWindow::QuakeWindow(): QMainWindow(), statsDialog(nullptr)
 
 void QuakeWindow::createMainWidget()
 {
-  table = new QTableView();
-  table->setModel(&model);
+  samplesPage = new SamplesPage();
 
-  QFont tableFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-  table->setFont(tableFont);
-
-  setCentralWidget(table); 
+  setCentralWidget(samplesPage); 
 }
 
 
@@ -135,43 +132,43 @@ void QuakeWindow::setDataLocation()
 
 void QuakeWindow::openCSV()
 {
-  if (dataLocation == "") {
-    QMessageBox::critical(this, "Data Location Error",
-      "Data location has not been set!\n\n"
-      "You can specify this via the File menu."
-    );
-    return;
-  }
+  // if (dataLocation == "") {
+  //   QMessageBox::critical(this, "Data Location Error",
+  //     "Data location has not been set!\n\n"
+  //     "You can specify this via the File menu."
+  //   );
+  //   return;
+  // }
 
-  auto filename = QString("%1_%2.csv")
-    .arg(significance->currentText()).arg(period->currentText());
+  // auto filename = QString("%1_%2.csv")
+  //   .arg(significance->currentText()).arg(period->currentText());
 
-  auto path = dataLocation + "/" + filename;
+  // auto path = dataLocation + "/" + filename;
 
-  try {
-    model.updateFromFile(path);
-  }
-  catch (const std::exception& error) {
-    QMessageBox::critical(this, "CSV File Error", error.what());
-    return;
-  }
+  // try {
+  //   model.updateFromFile(path);
+  // }
+  // catch (const std::exception& error) {
+  //   QMessageBox::critical(this, "CSV File Error", error.what());
+  //   return;
+  // }
 
-  fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
-  table->resizeColumnsToContents();
+  // fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
+  // table->resizeColumnsToContents();
 }
 
 
 void QuakeWindow::displayStats()
 {
-  if (model.hasData()) {
-    if (statsDialog == nullptr) {
-      statsDialog = new StatsDialog(this);
-    }
+  // if (model.hasData()) {
+  //   if (statsDialog == nullptr) {
+  //     statsDialog = new StatsDialog(this);
+  //   }
 
-    statsDialog->show();
-    statsDialog->raise();
-    statsDialog->activateWindow();
-  }
+  //   statsDialog->show();
+  //   statsDialog->raise();
+  //   statsDialog->activateWindow();
+  // }
 }
 
 void QuakeWindow::about()

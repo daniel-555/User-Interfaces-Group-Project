@@ -9,8 +9,8 @@ class QString;
 class QComboBox;
 class QLabel;
 class QPushButton;
-class QTableView;
 class StatsDialog;
+class SamplesPage;
 
 class QuakeWindow: public QMainWindow
 {
@@ -28,15 +28,14 @@ class QuakeWindow: public QMainWindow
     void addFileMenu();
     void addHelpMenu();
 
-    SampleModel model;          // data model used by table
     QString dataLocation;      // location of CSV data files
     QComboBox* significance;   // selector for quake feed significance level
     QComboBox* period;         // selector for quake feed time period
     QPushButton* loadButton;   // button to load a new CSV file
     QPushButton* statsButton;  // button to display dataset stats
-    QTableView* table;         // table of quake data
     QLabel* fileInfo;          // status bar info on current file
     StatsDialog* statsDialog;  // dialog to display stats
+    SamplesPage* samplesPage;
 
   private slots:
     void setDataLocation();
