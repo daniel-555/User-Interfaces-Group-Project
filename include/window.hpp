@@ -16,12 +16,12 @@ class SamplesPage;
 class HomePage;
 class OverviewPage;
 
-class QuakeWindow : public QMainWindow
+class MainWindow : public QMainWindow
 {
   Q_OBJECT
 
 public:
-  QuakeWindow();
+  MainWindow();
 
 private:
   void createMainWidget();

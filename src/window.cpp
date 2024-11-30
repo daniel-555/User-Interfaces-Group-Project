@@ -13,7 +13,7 @@ static const int MIN_WINDOW_WIDTH = 950;
 static const int MIN_WINDOW_HEIGHT = 250;
 static const int MIN_TOOLBAR_WIDTH = 200;
 
-QuakeWindow::QuakeWindow() : QMainWindow(), statsDialog(nullptr)
+MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
 {
   createMainWidget();
   createFileSelectors();
@@ -27,7 +27,7 @@ QuakeWindow::QuakeWindow() : QMainWindow(), statsDialog(nullptr)
   setWindowTitle("Water Pollutants App");
 }
 
-void QuakeWindow::createMainWidget()
+void MainWindow::createMainWidget()
 {
   homePage = new HomePage();
   overviewPage = new OverviewPage();
@@ -42,7 +42,7 @@ void QuakeWindow::createMainWidget()
   setCentralWidget(pages);
 }
 
-void QuakeWindow::createFileSelectors()
+void MainWindow::createFileSelectors()
 {
   // QStringList significanceOptions;
   // significanceOptions << "significant" << "4.5" << "2.5" << "1.0" << "all";
@@ -55,7 +55,7 @@ void QuakeWindow::createFileSelectors()
   // period->addItems(periodOptions);
 }
 
-void QuakeWindow::createButtons()
+void MainWindow::createButtons()
 {
   homePageButton = new QPushButton("Home");
   samplesPageButton = new QPushButton("Samples Table");
@@ -66,7 +66,7 @@ void QuakeWindow::createButtons()
   connect(overviewPageButton, SIGNAL(clicked()), this, SLOT(showOverviewPage()));
 }
 
-void QuakeWindow::createToolBar()
+void MainWindow::createToolBar()
 {
   QToolBar *toolBar = new QToolBar();
 
@@ -105,14 +105,14 @@ void QuakeWindow::createToolBar()
   addToolBar(Qt::LeftToolBarArea, toolBar);
 }
 
-void QuakeWindow::createStatusBar()
+void MainWindow::createStatusBar()
 {
   fileInfo = new QLabel("Current file: <none>");
   QStatusBar *status = statusBar();
   status->addWidget(fileInfo);
 }
 
-void QuakeWindow::addFileMenu()
+void MainWindow::addFileMenu()
 {
   QAction *locAction = new QAction("Set Data &Location", this);
   locAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_L));
@@ -127,7 +127,7 @@ void QuakeWindow::addFileMenu()
   fileMenu->addAction(closeAction);
 }
 
-void QuakeWindow::addHelpMenu()
+void MainWindow::addHelpMenu()
 {
   QAction *aboutAction = new QAction("&About", this);
   connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
@@ -140,7 +140,7 @@ void QuakeWindow::addHelpMenu()
   helpMenu->addAction(aboutQtAction);
 }
 
-void QuakeWindow::setDataLocation()
+void MainWindow::setDataLocation()
 {
   QString directory = QFileDialog::getExistingDirectory(
       this, "Data Location", ".",
@@ -152,7 +152,7 @@ void QuakeWindow::setDataLocation()
   }
 }
 
-void QuakeWindow::openCSV()
+void MainWindow::openCSV()
 {
   // if (dataLocation == "") {
   //   QMessageBox::critical(this, "Data Location Error",
@@ -179,7 +179,7 @@ void QuakeWindow::openCSV()
   // table->resizeColumnsToContents();
 }
 
-void QuakeWindow::displayStats()
+void MainWindow::displayStats()
 {
   // if (model.hasData()) {
   //   if (statsDialog == nullptr) {
@@ -192,7 +192,7 @@ void QuakeWindow::displayStats()
   // }
 }
 
-void QuakeWindow::about()
+void MainWindow::about()
 {
   QMessageBox::about(this, "About Quake Tool",
                      "Quake Tool displays and analyzes earthquake data loaded from"
@@ -200,17 +200,17 @@ void QuakeWindow::about()
                      "(c) 2024 Nick Efford");
 }
 
-void QuakeWindow::showHomePage()
+void MainWindow::showHomePage()
 {
   pages->setCurrentIndex(0);
 }
 
-void QuakeWindow::showOverviewPage()
+void MainWindow::showOverviewPage()
 {
   pages->setCurrentIndex(1);
 }
 
-void QuakeWindow::showSamplesPage()
+void MainWindow::showSamplesPage()
 {
   pages->setCurrentIndex(2);
 }
