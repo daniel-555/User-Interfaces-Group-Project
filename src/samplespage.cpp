@@ -9,8 +9,6 @@ SamplesPage::SamplesPage()
 {
   createWidgets();
   arrangeWidgets();
-
-  setWindowTitle("Sample Table");
 }
 
 void SamplesPage::createWidgets()
@@ -24,7 +22,7 @@ void SamplesPage::createWidgets()
 
 void SamplesPage::arrangeWidgets()
 {
-  QHBoxLayout* layout = new QHBoxLayout();
+  QHBoxLayout *layout = new QHBoxLayout();
   layout->addWidget(table);
 
   setLayout(layout);

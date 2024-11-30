@@ -9,7 +9,9 @@
 #include "samplespage.hpp"
 #include "overviewpage.hpp"
 
-static const int MIN_WIDTH = 950;
+static const int MIN_WINDOW_WIDTH = 950;
+static const int MIN_WINDOW_HEIGHT = 250;
+static const int MIN_TOOLBAR_WIDTH = 200;
 
 QuakeWindow::QuakeWindow() : QMainWindow(), statsDialog(nullptr)
 {
@@ -21,8 +23,8 @@ QuakeWindow::QuakeWindow() : QMainWindow(), statsDialog(nullptr)
   addFileMenu();
   addHelpMenu();
 
-  setMinimumWidth(MIN_WIDTH);
-  setWindowTitle("Quake Tool");
+  setMinimumSize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT);
+  setWindowTitle("Water Pollutants App");
 }
 
 void QuakeWindow::createMainWidget()
@@ -86,13 +88,19 @@ void QuakeWindow::createToolBar()
   QLabel *titleLabel = new QLabel("<h2>Water Pollutants<br/>App</h2>");
   titleLabel->setAlignment(Qt::AlignHCenter);
 
-  toolBar->setMinimumWidth(200);
+  toolBar->setMinimumWidth(MIN_TOOLBAR_WIDTH);
+
+  QWidget *navButtonGroup = new QWidget();
+  QVBoxLayout *navButtonLayout = new QVBoxLayout();
+  navButtonLayout->setAlignment(Qt::AlignHCenter);
+  navButtonGroup->setLayout(navButtonLayout);
 
   toolBar->addWidget(titleLabel);
   toolBar->addSeparator();
-  toolBar->addWidget(homePageButton);
-  toolBar->addWidget(overviewPageButton);
-  toolBar->addWidget(samplesPageButton);
+  navButtonLayout->addWidget(homePageButton);
+  navButtonLayout->addWidget(overviewPageButton);
+  navButtonLayout->addWidget(samplesPageButton);
+  toolBar->addWidget(navButtonGroup);
 
   addToolBar(Qt::LeftToolBarArea, toolBar);
 }
