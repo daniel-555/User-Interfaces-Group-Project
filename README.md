@@ -1,6 +1,6 @@
-# COMP2811 Coursework 2
+# COMP2811 Group Project
 
-## Sample Solution
+## Solution
 
 Set up the build process with
 
@@ -8,10 +8,10 @@ Set up the build process with
 
 Build the application with
 
-    make quaketool
+    make pollutantsapp
 
 or just `make` by itself.
 
 Run the application with
 
-    ./quaketool
+    ./pollutantsapp
