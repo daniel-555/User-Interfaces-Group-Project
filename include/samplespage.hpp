@@ -18,5 +18,5 @@ private:
   void arrangeWidgets();
 
   SampleModel model; // data model used by table
-  QTableView *table; // table of quake data
+  QTableView* table; // table of quake data
 };

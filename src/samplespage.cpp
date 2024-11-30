@@ -24,7 +24,7 @@ void SamplesPage::createWidgets()
 
 void SamplesPage::arrangeWidgets()
 {
-  QHBoxLayout *layout = new QHBoxLayout();
+  QHBoxLayout* layout = new QHBoxLayout();
   layout->addWidget(table);
 
   setLayout(layout);

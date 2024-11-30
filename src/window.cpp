@@ -5,7 +5,9 @@
 #include <iostream>
 #include "window.hpp"
 #include "stats.hpp"
+#include "homepage.hpp"
 #include "samplespage.hpp"
+#include "overviewpage.hpp"
 
 static const int MIN_WIDTH = 950;
 
@@ -28,32 +30,32 @@ QuakeWindow::QuakeWindow(): QMainWindow(), statsDialog(nullptr)
 void QuakeWindow::createMainWidget()
 {
   samplesPage = new SamplesPage();
+  homePage = new HomePage();
+  overviewPage = new OverviewPage();
 
-  setCentralWidget(samplesPage); 
+  setCentralWidget(overviewPage); 
 }
 
 
 void QuakeWindow::createFileSelectors()
 {
-  QStringList significanceOptions;
-  significanceOptions << "significant" << "4.5" << "2.5" << "1.0" << "all";
-  significance = new QComboBox();
-  significance->addItems(significanceOptions);
+  // QStringList significanceOptions;
+  // significanceOptions << "significant" << "4.5" << "2.5" << "1.0" << "all";
+  // significance = new QComboBox();
+  // significance->addItems(significanceOptions);
 
-  QStringList periodOptions;
-  periodOptions << "hour" << "day" << "week" << "month";
-  period = new QComboBox();
-  period->addItems(periodOptions);
+  // QStringList periodOptions;
+  // periodOptions << "hour" << "day" << "week" << "month";
+  // period = new QComboBox();
+  // period->addItems(periodOptions);
 }
 
 
 void QuakeWindow::createButtons()
 {
-  loadButton = new QPushButton("Load");
-  statsButton = new QPushButton("Stats");
-
-  connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
-  connect(statsButton, SIGNAL(clicked()), this, SLOT(displayStats()));
+  homePageButton = new QPushButton("Home");
+  samplesPageButton = new QPushButton("Samples Table");
+  overviewPageButton = new QPushButton("Pollutants Overview");
 }
 
 
@@ -61,20 +63,33 @@ void QuakeWindow::createToolBar()
 {
   QToolBar* toolBar = new QToolBar();
 
-  QLabel* significanceLabel = new QLabel("Significance");
-  significanceLabel->setAlignment(Qt::AlignVCenter);
-  toolBar->addWidget(significanceLabel);
-  toolBar->addWidget(significance);
+  // QLabel* significanceLabel = new QLabel("Significance");
+  // significanceLabel->setAlignment(Qt::AlignVCenter);
+  // toolBar->addWidget(significanceLabel);
+  // toolBar->addWidget(significance);
 
-  QLabel* periodLabel = new QLabel("Period");
-  periodLabel->setAlignment(Qt::AlignVCenter);
-  toolBar->addWidget(periodLabel);
-  toolBar->addWidget(period);
+  // QLabel* periodLabel = new QLabel("Period");
+  // periodLabel->setAlignment(Qt::AlignVCenter);
+  // toolBar->addWidget(periodLabel);
+  // toolBar->addWidget(period);
 
+  // toolBar->addSeparator();
+
+  // toolBar->addWidget(loadButton);
+  // toolBar->addWidget(statsButton);
+
+  QLabel* titleLabel = new QLabel("<h2>Water Pollutants<br/>App</h2>");
+  titleLabel->setAlignment(Qt::AlignHCenter);
+
+
+  toolBar->setMinimumWidth(200);
+
+  toolBar->addWidget(titleLabel);
   toolBar->addSeparator();
-
-  toolBar->addWidget(loadButton);
-  toolBar->addWidget(statsButton);
+  toolBar->addWidget(homePageButton);
+  toolBar->addWidget(overviewPageButton);
+  toolBar->addWidget(samplesPageButton);
+  
 
   addToolBar(Qt::LeftToolBarArea, toolBar);
 }
@@ -177,4 +192,19 @@ void QuakeWindow::about()
     "Quake Tool displays and analyzes earthquake data loaded from"
     "a CSV file produced by the USGS Earthquake Hazards Program.\n\n"
     "(c) 2024 Nick Efford");
+}
+
+void QuakeWindow::showHomePage()
+{
+
+}
+
+void QuakeWindow::showSamplesPage()
+{
+
+}
+
+void QuakeWindow::showOverviewPage()
+{
+  
 }
