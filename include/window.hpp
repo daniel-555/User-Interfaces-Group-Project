@@ -16,6 +16,8 @@ class SamplesPage;
 class HomePage;
 class OverviewPage;
 
+class SampleModel;
+
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -35,6 +37,7 @@ private:
   QString dataLocation;     // location of CSV data files
   QLabel *fileInfo;         // status bar info on current file
   StatsDialog *statsDialog; // dialog to display stats
+  QPushButton *loadButton;
 
   QStackedWidget *pages;
   HomePage *homePage;
@@ -44,6 +47,8 @@ private:
   QPushButton *homePageButton;
   QPushButton *samplesPageButton;
   QPushButton *overviewPageButton;
+
+  SampleModel model;
 
 private slots:
   void setDataLocation();

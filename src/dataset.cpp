@@ -6,23 +6,23 @@
 
 using namespace std;
 
-
-void SampleDataset::loadData(const string& filename)
+void SampleDataset::loadData(const string &filename)
 {
   csv::CSVReader reader(filename);
 
   data.clear();
 
-  for (const auto& row: reader) {
+  for (const auto &row : reader)
+  {
     Sample sample{
-      row["time"].get<>(),
-      row["label"].get<>(),
-      row["definition"].get<>(),
-      row["qualifier"].get<>(),
-      row["result"].get<double>(),
-      row["unit"].get<>(),
-      row["northing"].get<int>(),
-      row["easting"].get<int>(),
+        row["sample.sampleDateTime"].get<>(),
+        row["determinand.label"].get<>(),
+        row["determinand.definition"].get<>(),
+        row["resultQualifier.notation"].get<>(),
+        row["result"].get<double>(),
+        row["determinand.unit.label"].get<>(),
+        row["sample.samplingPoint.northing"].get<int>(),
+        row["sample.samplingPoint.easting"].get<int>(),
     };
     data.push_back(sample);
   }
@@ -30,7 +30,8 @@ void SampleDataset::loadData(const string& filename)
 
 void SampleDataset::checkDataExists() const
 {
-  if (size() == 0) {
+  if (size() == 0)
+  {
     throw std::runtime_error("Dataset is empty!");
   }
 }

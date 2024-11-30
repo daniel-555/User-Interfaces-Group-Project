@@ -3,20 +3,22 @@
 #pragma once
 
 #include <QWidget>
-#include "model.hpp"
 
 class QTableView;
+class SampleModel;
 
 class SamplesPage : public QWidget
 {
 
 public:
-  SamplesPage();
+  SamplesPage(SampleModel *);
+
+  void updateColumnWidths();
 
 private:
   void createWidgets();
   void arrangeWidgets();
 
-  SampleModel model; // data model used by table
-  QTableView* table; // table of quake data
+  SampleModel *model; // data model used by table
+  QTableView *table;  // table of quake data
 };

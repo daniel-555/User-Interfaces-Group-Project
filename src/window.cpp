@@ -5,12 +5,13 @@
 #include <iostream>
 #include "window.hpp"
 #include "stats.hpp"
+#include "model.hpp"
 #include "homepage.hpp"
 #include "samplespage.hpp"
 #include "overviewpage.hpp"
 
 static const int MIN_WINDOW_WIDTH = 950;
-static const int MIN_WINDOW_HEIGHT = 250;
+static const int MIN_WINDOW_HEIGHT = 350;
 static const int MIN_TOOLBAR_WIDTH = 200;
 
 MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
@@ -31,7 +32,7 @@ void MainWindow::createMainWidget()
 {
   homePage = new HomePage();
   overviewPage = new OverviewPage();
-  samplesPage = new SamplesPage();
+  samplesPage = new SamplesPage(&model);
 
   pages = new QStackedWidget();
 
@@ -64,6 +65,10 @@ void MainWindow::createButtons()
   connect(homePageButton, SIGNAL(clicked()), this, SLOT(showHomePage()));
   connect(samplesPageButton, SIGNAL(clicked()), this, SLOT(showSamplesPage()));
   connect(overviewPageButton, SIGNAL(clicked()), this, SLOT(showOverviewPage()));
+
+  loadButton = new QPushButton("Load Data");
+
+  connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
 }
 
 void MainWindow::createToolBar()
@@ -78,7 +83,9 @@ void MainWindow::createToolBar()
   // Create the navigation button group
   QGroupBox *navButtonGroup = new QGroupBox();
   QVBoxLayout *navButtonLayout = new QVBoxLayout();
-  navButtonLayout->setAlignment(Qt::AlignHCenter);
+  QLabel *navLabel = new QLabel("<b>Navigation</b>");
+
+  navButtonLayout->addWidget(navLabel);
   navButtonLayout->addWidget(homePageButton);
   navButtonLayout->addWidget(overviewPageButton);
   navButtonLayout->addWidget(samplesPageButton);
@@ -87,10 +94,12 @@ void MainWindow::createToolBar()
   // Create the load document group
   QGroupBox *loadFileGroup = new QGroupBox();
   QVBoxLayout *loadFileLayout = new QVBoxLayout();
-  loadFileLayout->addWidget(test);
-  loadFileLayout->addStretch(1);
+  QLabel *loadFileLabel = new QLabel("<b>File Settings</b>");
+
+  loadFileLayout->addWidget(loadFileLabel);
+  loadFileLayout->addWidget(loadButton);
+  loadFileLayout->addStretch();
   loadFileGroup->setLayout(loadFileLayout);
-  loadFileGroup->setAlignment(Qt::AlignBottom);
 
   // Add the components to the toolbar
   toolBar->addWidget(titleLabel);
@@ -164,17 +173,18 @@ void MainWindow::openCSV()
   auto filename = QString("Y-2024.csv");
   auto path = dataLocation + "/" + filename;
 
-  // try
-  // {
-  //   model.updateFromFile(path);
-  // }
-  // catch (const std::exception &error)
-  // {
-  //   QMessageBox::critical(this, "CSV File Error", error.what());
-  //   return;
-  // }
+  try
+  {
+    model.updateFromFile(path);
+  }
+  catch (const std::exception &error)
+  {
+    QMessageBox::critical(this, "CSV File Error", error.what());
+    return;
+  }
 
   fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
+  samplesPage->updateColumnWidths();
   // table->resizeColumnsToContents();
 }
 
