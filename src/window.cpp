@@ -10,8 +10,8 @@
 #include "samplespage.hpp"
 #include "overviewpage.hpp"
 
-static const int MIN_WINDOW_WIDTH = 950;
-static const int MIN_WINDOW_HEIGHT = 650;
+static const int MIN_WINDOW_WIDTH = 1000;
+static const int MIN_WINDOW_HEIGHT = 700;
 static const int MIN_TOOLBAR_WIDTH = 200;
 
 MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
