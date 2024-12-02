@@ -6,6 +6,7 @@
 #include "window.hpp"
 #include "stats.hpp"
 #include "model.hpp"
+#include "dataset.hpp"
 #include "homepage.hpp"
 #include "samplespage.hpp"
 #include "overviewpage.hpp"
@@ -31,7 +32,7 @@ MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
 
 void MainWindow::createMainWidget()
 {
-  homePage = new HomePage();
+  homePage = new HomePage(&dataset);
   overviewPage = new OverviewPage();
   samplesPage = new SamplesPage(&model);
 
@@ -178,6 +179,7 @@ void MainWindow::openCSV()
   try
   {
     model.updateFromFile(path);
+    dataset.loadData(path.toStdString());
   }
   catch (const std::exception &error)
   {
@@ -215,6 +217,7 @@ void MainWindow::about()
 void MainWindow::makeConnections()
 {
   connect(this, SIGNAL(datasetUpdated()), samplesPage, SLOT(updateColumnWidths()));
+  connect(this, SIGNAL(datasetUpdated()), homePage, SIGNAL(datasetUpdated()));
 }
 
 void MainWindow::showHomePage()

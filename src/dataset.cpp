@@ -37,7 +37,7 @@ void SampleDataset::checkDataExists() const
   }
 }
 
-vector<Sample> SampleDataset::getCommonPollutants()
+vector<pair<string, int>> SampleDataset::getCommonPollutants()
 {
   unordered_map<string, int> frequencyMap;
   for (const auto &sample : data)
@@ -49,23 +49,11 @@ vector<Sample> SampleDataset::getCommonPollutants()
   sort(frequencyVector.begin(), frequencyVector.end(), [](const auto &a, const auto &b)
        { return b.second < a.second; });
 
-  vector<string> topDeterminands;
+  vector<pair<string, int>> topDeterminands;
   for (int i = 0; i < 10 && i < frequencyVector.size(); ++i)
   {
-    topDeterminands.push_back(frequencyVector[i].first);
+    topDeterminands.push_back(frequencyVector[i]);
   }
 
-  vector<Sample> filteredData;
-  for (const auto &sample : data)
-  {
-    for (string determinand : topDeterminands)
-    {
-      if (sample.getLabel() == determinand)
-      {
-        filteredData.push_back(sample);
-      }
-    }
-  }
-
-  return filteredData;
+  return topDeterminands;
 }

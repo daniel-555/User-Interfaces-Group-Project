@@ -6,14 +6,15 @@ class QLabel;
 class QChart;
 class QPieSeries;
 class QPushButton;
+class SampleDataset;
 
 class OverviewCard : public QGroupBox
 {
     Q_OBJECT
 public:
-    OverviewCard();
+    OverviewCard(SampleDataset *);
 
-private slots:
+public slots:
     void updateChart();
 
 private:
@@ -26,4 +27,6 @@ private:
 
     QChart *pieChart;
     QPieSeries *chartData;
+
+    SampleDataset *dataset;
 };

@@ -17,6 +17,7 @@ class HomePage;
 class OverviewPage;
 
 class SampleModel;
+class SampleDataset;
 
 class MainWindow : public QMainWindow
 {
@@ -53,6 +54,7 @@ private:
   QPushButton *overviewPageButton;
 
   SampleModel model;
+  SampleDataset dataset;
 
 private slots:
   void setDataLocation();

@@ -1,8 +1,10 @@
 #include <QtWidgets>
 #include <QtCharts>
+#include <vector>
 #include "overviewcard.hpp"
+#include "dataset.hpp"
 
-OverviewCard::OverviewCard()
+OverviewCard::OverviewCard(SampleDataset *data) : dataset(data)
 {
     createWidgets();
     createChart();
@@ -36,25 +38,27 @@ void OverviewCard::createChart()
 
     pieChart->addSeries(chartData);
     pieChart->setTitle("Most Frequent Samples");
-
-    updateChart();
 }
 
 void OverviewCard::updateChart()
 {
-    for (int i = 1; i < 6; i++)
+    // for (int i = 1; i < 6; i++)
+    // {
+    //     QPieSlice *slice = new QPieSlice();
+    //     slice->setLabel(QString("Determinand %1").arg(i));
+    //     slice->setValue(i);
+
+    //     chartData->append(slice);
+    // }
+
+    for (std::pair<std::string, int> determinand : dataset->getCommonPollutants())
     {
         QPieSlice *slice = new QPieSlice();
-        slice->setLabel(QString("Determinand %1").arg(i));
-        slice->setValue(i);
+        slice->setLabel(QString::fromStdString(determinand.first));
+        slice->setValue(determinand.second);
 
         chartData->append(slice);
     }
 
-    // chartData->append("Determinand 1", 5);
-    // chartData->append("Determinand 2", 1);
-    // chartData->append("Determinand 3", 16);
-    // chartData->append("Determinand 4", 3);
-    // chartData->append("Determinand 5", 8);
-    // chartData->append("Other", 4);
+    chartData->setLabelsVisible(true);
 }

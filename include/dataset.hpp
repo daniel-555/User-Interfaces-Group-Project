@@ -13,7 +13,7 @@ public:
   void loadData(const std::string &);
   int size() const { return data.size(); }
   Sample operator[](int index) const { return data.at(index); }
-  std::vector<Sample> getCommonPollutants();
+  std::vector<std::pair<std::string, int>> getCommonPollutants();
   // Quake shallowest() const;
   // double meanDepth() const;
   // double meanMagnitude() const;
