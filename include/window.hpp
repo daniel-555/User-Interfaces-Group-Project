@@ -25,6 +25,9 @@ class MainWindow : public QMainWindow
 public:
   MainWindow();
 
+signals:
+  void datasetUpdated();
+
 private:
   void createMainWidget();
   void createFileSelectors();
@@ -33,6 +36,7 @@ private:
   void createStatusBar();
   void addFileMenu();
   void addHelpMenu();
+  void makeConnections();
 
   QString dataLocation;     // location of CSV data files
   QLabel *fileInfo;         // status bar info on current file

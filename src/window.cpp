@@ -23,6 +23,7 @@ MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
   createStatusBar();
   addFileMenu();
   addHelpMenu();
+  makeConnections();
 
   setMinimumSize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT);
   setWindowTitle(tr("Water Pollutants App"));
@@ -64,6 +65,7 @@ void MainWindow::createButtons()
 
   connect(homePageButton, SIGNAL(clicked()), this, SLOT(showHomePage()));
   connect(samplesPageButton, SIGNAL(clicked()), this, SLOT(showSamplesPage()));
+  // connect(samplesPageButton, SIGNAL(clicked()), samplesPage, SLOT(updateColumnWidths()));
   connect(overviewPageButton, SIGNAL(clicked()), this, SLOT(showOverviewPage()));
 
   loadButton = new QPushButton(tr("Load Data"));
@@ -184,8 +186,10 @@ void MainWindow::openCSV()
   }
 
   fileInfo->setText(QString(tr("Current file: <kbd>%1</kbd>")).arg(filename));
-  samplesPage->updateColumnWidths();
-  // table->resizeColumnsToContents();
+
+  emit datasetUpdated();
+
+  // samplesPage->updateColumnWidths();
 }
 
 void MainWindow::displayStats()
@@ -206,6 +210,11 @@ void MainWindow::about()
   QMessageBox::about(this, tr("About Pollutants Tool"),
                      tr("Pollutants Tool displays and analyzes water pollutants data loaded from"
                         "a CSV file produced by Defra's Water Quality Archive"));
+}
+
+void MainWindow::makeConnections()
+{
+  connect(this, SIGNAL(datasetUpdated()), samplesPage, SLOT(updateColumnWidths()));
 }
 
 void MainWindow::showHomePage()

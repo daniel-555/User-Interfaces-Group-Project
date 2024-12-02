@@ -9,10 +9,11 @@ class SampleModel;
 
 class SamplesPage : public QWidget
 {
-
+  Q_OBJECT
 public:
   SamplesPage(SampleModel *);
-
+  
+public slots:
   void updateColumnWidths();
 
 private:
