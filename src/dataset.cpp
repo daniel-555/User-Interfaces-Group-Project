@@ -1,6 +1,7 @@
 // COMP2811 Coursework 1 sample solution: QuakeDataset class
 
 #include <stdexcept>
+#include <unordered_map>
 #include "../include/dataset.hpp"
 #include "../include/csv.hpp"
 
@@ -34,4 +35,37 @@ void SampleDataset::checkDataExists() const
   {
     throw std::runtime_error("Dataset is empty!");
   }
+}
+
+vector<Sample> SampleDataset::getCommonPollutants()
+{
+  unordered_map<string, int> frequencyMap;
+  for (const auto &sample : data)
+  {
+    frequencyMap[sample.getLabel()]++;
+  }
+
+  vector<pair<string, int>> frequencyVector(frequencyMap.begin(), frequencyMap.end());
+  sort(frequencyVector.begin(), frequencyVector.end(), [](const auto &a, const auto &b)
+       { return b.second < a.second; });
+
+  vector<string> topDeterminands;
+  for (int i = 0; i < 10 && i < frequencyVector.size(); ++i)
+  {
+    topDeterminands.push_back(frequencyVector[i].first);
+  }
+
+  vector<Sample> filteredData;
+  for (const auto &sample : data)
+  {
+    for (string determinand : topDeterminands)
+    {
+      if (sample.getLabel() == determinand)
+      {
+        filteredData.push_back(sample);
+      }
+    }
+  }
+
+  return filteredData;
 }
