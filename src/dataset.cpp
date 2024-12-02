@@ -42,7 +42,7 @@ vector<pair<string, int>> SampleDataset::getCommonPollutants()
   unordered_map<string, int> frequencyMap;
   for (const auto &sample : data)
   {
-    frequencyMap[sample.getLabel()]++;
+    frequencyMap[sample.getDefinition()]++;
   }
 
   vector<pair<string, int>> frequencyVector(frequencyMap.begin(), frequencyMap.end());
@@ -56,4 +56,19 @@ vector<pair<string, int>> SampleDataset::getCommonPollutants()
   }
 
   return topDeterminands;
+}
+
+vector<Sample *> SampleDataset::getDeterminandSamples(const string &determinand)
+{
+  vector<Sample *> samples;
+
+  for (const auto &sample : data)
+  {
+    if (sample.getDefinition() == determinand)
+    {
+      samples.push_back(const_cast<Sample *>(&sample));
+    }
+  }
+
+  return samples;
 }

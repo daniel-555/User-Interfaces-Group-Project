@@ -27,7 +27,7 @@ public:
   MainWindow();
 
 signals:
-  void datasetUpdated();
+  void datasetUpdated(SampleDataset *);
 
 private:
   void createMainWidget();

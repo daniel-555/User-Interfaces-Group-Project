@@ -182,7 +182,7 @@ void MainWindow::openCSV()
 
   fileInfo->setText(QString(tr("Current file: <kbd>%1</kbd>")).arg(filename));
 
-  emit datasetUpdated();
+  emit datasetUpdated(&dataset);
 
   // samplesPage->updateColumnWidths();
 }
@@ -216,8 +216,9 @@ void MainWindow::makeConnections()
   connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
 
   // When dataset is updated
-  connect(this, SIGNAL(datasetUpdated()), samplesPage, SLOT(updateColumnWidths()));
-  connect(this, SIGNAL(datasetUpdated()), homePage, SIGNAL(datasetUpdated()));
+  connect(this, SIGNAL(datasetUpdated(SampleDataset *)), samplesPage, SLOT(updateColumnWidths()));
+  connect(this, SIGNAL(datasetUpdated(SampleDataset *)), homePage, SIGNAL(datasetUpdated()));
+  connect(this, SIGNAL(datasetUpdated(SampleDataset *)), overviewPage, SLOT(updateDataset(SampleDataset *)));
 
   // Homepage cards clicked
   connect(homePage, SIGNAL(overviewCardClicked()), this, SLOT(showOverviewPage()));

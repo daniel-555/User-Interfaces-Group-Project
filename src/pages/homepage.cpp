@@ -20,9 +20,10 @@ void HomePage::arrangeWidgets()
     QGridLayout *grid = new QGridLayout();
 
     grid->addWidget(overviewCard, 0, 0);
-    grid->addWidget(overviewCard, 0, 1);
     grid->addWidget(overviewCard, 1, 0);
-    grid->addWidget(overviewCard, 1, 1);
+
+    grid->setRowStretch(0, 1);
+    grid->setRowStretch(1, 1);
 
     setLayout(grid);
 }

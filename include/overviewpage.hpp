@@ -2,12 +2,33 @@
 
 #include <QWidget>
 
-class OverviewPage: public QWidget
-{
-    public:
-        OverviewPage();
+class QLabel;
+class QChart;
+class QDateTimeAxis;
+class QValueAxis;
+class QLineSeries;
+class SampleDataset;
 
-    private:
-        void createWidgets();
-        void arrangeWidgets();
+class OverviewPage : public QWidget
+{
+    Q_OBJECT
+public:
+    OverviewPage();
+
+private:
+    void createWidgets();
+    void arrangeWidgets();
+    void createChart();
+
+    QLabel *title;
+    QChart *pollutantLevels;
+
+    QDateTimeAxis *xAxis;
+    QValueAxis *yAxis;
+
+    SampleDataset *dataset;
+
+private slots:
+    void updateChart();
+    void updateDataset(SampleDataset *);
 };

@@ -26,6 +26,7 @@ qt_add_executable(pollutantsapp
 
     ${CMAKE_SOURCE_DIR}/include/samplespage.hpp
     ${CMAKE_SOURCE_DIR}/include/homepage.hpp
+    ${CMAKE_SOURCE_DIR}/include/overviewpage.hpp
     ${CMAKE_SOURCE_DIR}/include/overviewcard.hpp
     ${CMAKE_SOURCE_DIR}/include/window.hpp
 )

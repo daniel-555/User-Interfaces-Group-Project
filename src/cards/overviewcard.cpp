@@ -23,9 +23,12 @@ void OverviewCard::createWidgets()
 void OverviewCard::arrangeWidgets()
 {
     QVBoxLayout *layout = new QVBoxLayout();
+    QHBoxLayout *header = new QHBoxLayout();
     QChartView *pieChartView = new QChartView(pieChart);
 
-    layout->addWidget(title);
+    header->addWidget(title);
+    header->addWidget(showMore);
+    layout->addLayout(header);
     layout->addWidget(pieChartView);
     layout->addWidget(showMore);
     layout->setAlignment(Qt::AlignTop);
