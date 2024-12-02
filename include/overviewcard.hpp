@@ -14,6 +14,9 @@ class OverviewCard : public QGroupBox
 public:
     OverviewCard(SampleDataset *);
 
+signals:
+    void clicked();
+
 public slots:
     void updateChart();
 
@@ -23,7 +26,7 @@ private:
     void createChart();
 
     QLabel *title;
-    QPushButton *test;
+    QPushButton *showMore;
 
     QChart *pieChart;
     QPieSeries *chartData;

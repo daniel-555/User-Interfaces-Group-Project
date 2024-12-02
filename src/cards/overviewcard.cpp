@@ -14,6 +14,10 @@ OverviewCard::OverviewCard(SampleDataset *data) : dataset(data)
 void OverviewCard::createWidgets()
 {
     title = new QLabel("<h3>Pollutants Overview</h3>");
+    showMore = new QPushButton("Show More");
+
+    showMore->setFlat(true);
+    connect(showMore, SIGNAL(clicked()), this, SIGNAL(clicked()));
 }
 
 void OverviewCard::arrangeWidgets()
@@ -23,6 +27,7 @@ void OverviewCard::arrangeWidgets()
 
     layout->addWidget(title);
     layout->addWidget(pieChartView);
+    layout->addWidget(showMore);
     layout->setAlignment(Qt::AlignTop);
 
     setLayout(layout);
@@ -34,28 +39,23 @@ void OverviewCard::createChart()
     chartData = new QPieSeries();
 
     pieChart->legend()
-        ->setAlignment(Qt::AlignRight);
+        ->hide();
 
+    pieChart->setTitle("10 Most Recorded Determinands");
     pieChart->addSeries(chartData);
-    pieChart->setTitle("Most Frequent Samples");
 }
 
 void OverviewCard::updateChart()
 {
-    // for (int i = 1; i < 6; i++)
-    // {
-    //     QPieSlice *slice = new QPieSlice();
-    //     slice->setLabel(QString("Determinand %1").arg(i));
-    //     slice->setValue(i);
-
-    //     chartData->append(slice);
-    // }
+    int frequency = 0;
 
     for (std::pair<std::string, int> determinand : dataset->getCommonPollutants())
     {
         QPieSlice *slice = new QPieSlice();
         slice->setLabel(QString::fromStdString(determinand.first));
         slice->setValue(determinand.second);
+
+        frequency += determinand.second;
 
         chartData->append(slice);
     }

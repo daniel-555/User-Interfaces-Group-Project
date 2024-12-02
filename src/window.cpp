@@ -64,14 +64,7 @@ void MainWindow::createButtons()
   samplesPageButton = new QPushButton(tr("Samples Table"));
   overviewPageButton = new QPushButton(tr("Pollutants Overview"));
 
-  connect(homePageButton, SIGNAL(clicked()), this, SLOT(showHomePage()));
-  connect(samplesPageButton, SIGNAL(clicked()), this, SLOT(showSamplesPage()));
-  // connect(samplesPageButton, SIGNAL(clicked()), samplesPage, SLOT(updateColumnWidths()));
-  connect(overviewPageButton, SIGNAL(clicked()), this, SLOT(showOverviewPage()));
-
   loadButton = new QPushButton(tr("Load Data"));
-
-  connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
 }
 
 void MainWindow::createToolBar()
@@ -216,8 +209,18 @@ void MainWindow::about()
 
 void MainWindow::makeConnections()
 {
+  // Button functionality
+  connect(homePageButton, SIGNAL(clicked()), this, SLOT(showHomePage()));
+  connect(samplesPageButton, SIGNAL(clicked()), this, SLOT(showSamplesPage()));
+  connect(overviewPageButton, SIGNAL(clicked()), this, SLOT(showOverviewPage()));
+  connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
+
+  // When dataset is updated
   connect(this, SIGNAL(datasetUpdated()), samplesPage, SLOT(updateColumnWidths()));
   connect(this, SIGNAL(datasetUpdated()), homePage, SIGNAL(datasetUpdated()));
+
+  // Homepage cards clicked
+  connect(homePage, SIGNAL(overviewCardClicked()), this, SLOT(showOverviewPage()));
 }
 
 void MainWindow::showHomePage()

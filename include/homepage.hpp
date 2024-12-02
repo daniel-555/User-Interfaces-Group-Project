@@ -13,6 +13,7 @@ public:
 
 signals:
     void datasetUpdated();
+    void overviewCardClicked();
 
 private:
     void createWidgets();
