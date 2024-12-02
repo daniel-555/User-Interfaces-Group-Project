@@ -11,7 +11,7 @@
 #include "overviewpage.hpp"
 
 static const int MIN_WINDOW_WIDTH = 950;
-static const int MIN_WINDOW_HEIGHT = 350;
+static const int MIN_WINDOW_HEIGHT = 650;
 static const int MIN_TOOLBAR_WIDTH = 200;
 
 MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
@@ -25,7 +25,7 @@ MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
   addHelpMenu();
 
   setMinimumSize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT);
-  setWindowTitle("Water Pollutants App");
+  setWindowTitle(tr("Water Pollutants App"));
 }
 
 void MainWindow::createMainWidget()
@@ -58,15 +58,15 @@ void MainWindow::createFileSelectors()
 
 void MainWindow::createButtons()
 {
-  homePageButton = new QPushButton("Home");
-  samplesPageButton = new QPushButton("Samples Table");
-  overviewPageButton = new QPushButton("Pollutants Overview");
+  homePageButton = new QPushButton(tr("Home"));
+  samplesPageButton = new QPushButton(tr("Samples Table"));
+  overviewPageButton = new QPushButton(tr("Pollutants Overview"));
 
   connect(homePageButton, SIGNAL(clicked()), this, SLOT(showHomePage()));
   connect(samplesPageButton, SIGNAL(clicked()), this, SLOT(showSamplesPage()));
   connect(overviewPageButton, SIGNAL(clicked()), this, SLOT(showOverviewPage()));
 
-  loadButton = new QPushButton("Load Data");
+  loadButton = new QPushButton(tr("Load Data"));
 
   connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
 }
@@ -75,7 +75,7 @@ void MainWindow::createToolBar()
 {
   QToolBar *toolBar = new QToolBar();
 
-  QLabel *titleLabel = new QLabel("<h2>Water Pollutants<br/>App</h2>");
+  QLabel *titleLabel = new QLabel(tr("<h2>Water Pollutants<br/>App</h2>"));
   titleLabel->setAlignment(Qt::AlignHCenter);
 
   toolBar->setMinimumWidth(MIN_TOOLBAR_WIDTH);
@@ -83,7 +83,7 @@ void MainWindow::createToolBar()
   // Create the navigation button group
   QGroupBox *navButtonGroup = new QGroupBox();
   QVBoxLayout *navButtonLayout = new QVBoxLayout();
-  QLabel *navLabel = new QLabel("<b>Navigation</b>");
+  QLabel *navLabel = new QLabel(tr("<b>Navigation</b>"));
 
   navButtonLayout->addWidget(navLabel);
   navButtonLayout->addWidget(homePageButton);
@@ -94,7 +94,7 @@ void MainWindow::createToolBar()
   // Create the load document group
   QGroupBox *loadFileGroup = new QGroupBox();
   QVBoxLayout *loadFileLayout = new QVBoxLayout();
-  QLabel *loadFileLabel = new QLabel("<b>File Settings</b>");
+  QLabel *loadFileLabel = new QLabel(tr("<b>File Settings</b>"));
 
   loadFileLayout->addWidget(loadFileLabel);
   loadFileLayout->addWidget(loadButton);
@@ -112,35 +112,35 @@ void MainWindow::createToolBar()
 
 void MainWindow::createStatusBar()
 {
-  fileInfo = new QLabel("Current file: <none>");
+  fileInfo = new QLabel(tr("Current file: <none>"));
   QStatusBar *status = statusBar();
   status->addWidget(fileInfo);
 }
 
 void MainWindow::addFileMenu()
 {
-  QAction *locAction = new QAction("Set Data &Location", this);
+  QAction *locAction = new QAction(tr("Set Data &Location"), this);
   locAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_L));
   connect(locAction, SIGNAL(triggered()), this, SLOT(setDataLocation()));
 
-  QAction *closeAction = new QAction("Quit", this);
+  QAction *closeAction = new QAction(tr("Quit"), this);
   closeAction->setShortcut(QKeySequence::Close);
   connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
 
-  QMenu *fileMenu = menuBar()->addMenu("&File");
+  QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
   fileMenu->addAction(locAction);
   fileMenu->addAction(closeAction);
 }
 
 void MainWindow::addHelpMenu()
 {
-  QAction *aboutAction = new QAction("&About", this);
+  QAction *aboutAction = new QAction(tr("&About"), this);
   connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
-  QAction *aboutQtAction = new QAction("About &Qt", this);
+  QAction *aboutQtAction = new QAction(tr("About &Qt"), this);
   connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
-  QMenu *helpMenu = menuBar()->addMenu("&Help");
+  QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
   helpMenu->addAction(aboutAction);
   helpMenu->addAction(aboutQtAction);
 }
@@ -148,7 +148,7 @@ void MainWindow::addHelpMenu()
 void MainWindow::setDataLocation()
 {
   QString directory = QFileDialog::getExistingDirectory(
-      this, "Data Location", ".",
+      this, tr("Data Location"), ".",
       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
   if (directory.length() > 0)
@@ -161,9 +161,9 @@ void MainWindow::openCSV()
 {
   if (dataLocation == "")
   {
-    QMessageBox::critical(this, "Data Location Error",
-                          "Data location has not been set!\n\n"
-                          "You can specify this via the File menu.");
+    QMessageBox::critical(this, tr("Data Location Error"),
+                          tr("Data location has not been set!\n\n"
+                             "You can specify this via the File menu."));
     return;
   }
 
@@ -183,7 +183,7 @@ void MainWindow::openCSV()
     return;
   }
 
-  fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
+  fileInfo->setText(QString(tr("Current file: <kbd>%1</kbd>")).arg(filename));
   samplesPage->updateColumnWidths();
   // table->resizeColumnsToContents();
 }
@@ -203,10 +203,9 @@ void MainWindow::displayStats()
 
 void MainWindow::about()
 {
-  QMessageBox::about(this, "About Quake Tool",
-                     "Quake Tool displays and analyzes earthquake data loaded from"
-                     "a CSV file produced by the USGS Earthquake Hazards Program.\n\n"
-                     "(c) 2024 Nick Efford");
+  QMessageBox::about(this, tr("About Pollutants Tool"),
+                     tr("Pollutants Tool displays and analyzes water pollutants data loaded from"
+                        "a CSV file produced by Defra's Water Quality Archive"));
 }
 
 void MainWindow::showHomePage()

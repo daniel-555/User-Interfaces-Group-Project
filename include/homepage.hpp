@@ -2,12 +2,16 @@
 
 #include <QWidget>
 
-class HomePage: public QWidget
-{
-    public:
-        HomePage();
+class OverviewCard;
 
-    private:
-        void createWidgets();
-        void arrangeWidgets();
+class HomePage : public QWidget
+{
+public:
+    HomePage();
+
+private:
+    void createWidgets();
+    void arrangeWidgets();
+
+    OverviewCard *overviewCard;
 };
