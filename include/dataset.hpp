@@ -14,6 +14,7 @@ public:
   int size() const { return data.size(); }
   Sample operator[](int index) const { return data.at(index); }
 
+  std::vector<std::string> getDeterminands();
   std::vector<std::pair<std::string, int>> getCommonPollutants();
   std::vector<Sample *> getDeterminandSamples(const std::string &);
 

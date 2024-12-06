@@ -37,6 +37,24 @@ void SampleDataset::checkDataExists() const
   }
 }
 
+vector<string> SampleDataset::getDeterminands()
+{
+  unordered_map<string, int> determinandMap;
+  for (const auto &sample : data)
+  {
+    determinandMap[sample.getDefinition()]++;
+  }
+
+  vector<string> determinands;
+
+  for (auto kv : determinandMap)
+  {
+    determinands.push_back(kv.first);
+  }
+
+  return determinands;
+}
+
 vector<pair<string, int>> SampleDataset::getCommonPollutants()
 {
   unordered_map<string, int> frequencyMap;
