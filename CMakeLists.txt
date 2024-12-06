@@ -23,10 +23,15 @@ qt_add_executable(pollutantsapp
     ${CMAKE_SOURCE_DIR}/src/pages/homepage.cpp
     ${CMAKE_SOURCE_DIR}/src/pages/overviewpage.cpp
     ${CMAKE_SOURCE_DIR}/src/pages/samplespage.cpp
+    ${CMAKE_SOURCE_DIR}/src/pages/POPpage.cpp
+    ${CMAKE_SOURCE_DIR}/src/pages/litterpage.cpp
+
 
     ${CMAKE_SOURCE_DIR}/include/samplespage.hpp
     ${CMAKE_SOURCE_DIR}/include/homepage.hpp
     ${CMAKE_SOURCE_DIR}/include/overviewpage.hpp
+    ${CMAKE_SOURCE_DIR}/include/POPpage.hpp
+    ${CMAKE_SOURCE_DIR}/include/litterpage.hpp
     ${CMAKE_SOURCE_DIR}/include/overviewcard.hpp
     ${CMAKE_SOURCE_DIR}/include/window.hpp
 )
