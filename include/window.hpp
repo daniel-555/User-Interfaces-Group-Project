@@ -15,6 +15,8 @@ class QStackedWidget;
 class SamplesPage;
 class HomePage;
 class OverviewPage;
+class POPPage;
+class LitterPage;
 
 class SampleModel;
 class SampleDataset;
@@ -48,10 +50,14 @@ private:
   HomePage *homePage;
   SamplesPage *samplesPage;
   OverviewPage *overviewPage;
+  POPPage *popPage;
+  LitterPage *litterPage;
 
   QPushButton *homePageButton;
   QPushButton *samplesPageButton;
   QPushButton *overviewPageButton;
+  QPushButton *popPageButton;
+  QPushButton *litterPageButton;
 
   SampleModel model;
   SampleDataset dataset;
@@ -65,4 +71,6 @@ private slots:
   void showHomePage();
   void showSamplesPage();
   void showOverviewPage();
+  void showPOPPage();
+  void showLitterPage();
 };

@@ -10,6 +10,8 @@
 #include "homepage.hpp"
 #include "samplespage.hpp"
 #include "overviewpage.hpp"
+#include "POPpage.hpp"
+#include "litterpage.hpp"
 
 static const int MIN_WINDOW_WIDTH = 1000;
 static const int MIN_WINDOW_HEIGHT = 700;
@@ -35,12 +37,16 @@ void MainWindow::createMainWidget()
   homePage = new HomePage(&dataset);
   overviewPage = new OverviewPage();
   samplesPage = new SamplesPage(&model);
+  popPage = new POPPage();
+  litterPage = new LitterPage();
 
   pages = new QStackedWidget();
 
   pages->addWidget(homePage);
   pages->addWidget(overviewPage);
   pages->addWidget(samplesPage);
+  pages->addWidget(popPage);
+  pages->addWidget(litterPage);
 
   setCentralWidget(pages);
 }
@@ -63,6 +69,8 @@ void MainWindow::createButtons()
   homePageButton = new QPushButton(tr("Home"));
   samplesPageButton = new QPushButton(tr("Samples Table"));
   overviewPageButton = new QPushButton(tr("Pollutants Overview"));
+  popPageButton = new QPushButton(tr("Persistent Organic Pollutants"));
+  litterPageButton = new QPushButton(tr("Environmental Litter Indicators"));
 
   loadButton = new QPushButton(tr("Load Data"));
 }
@@ -85,6 +93,9 @@ void MainWindow::createToolBar()
   navButtonLayout->addWidget(homePageButton);
   navButtonLayout->addWidget(overviewPageButton);
   navButtonLayout->addWidget(samplesPageButton);
+  navButtonLayout->addWidget(popPageButton);
+  navButtonLayout->addWidget(litterPageButton);
+
   navButtonGroup->setLayout(navButtonLayout);
 
   // Create the load document group
@@ -213,12 +224,16 @@ void MainWindow::makeConnections()
   connect(homePageButton, SIGNAL(clicked()), this, SLOT(showHomePage()));
   connect(samplesPageButton, SIGNAL(clicked()), this, SLOT(showSamplesPage()));
   connect(overviewPageButton, SIGNAL(clicked()), this, SLOT(showOverviewPage()));
+  connect(popPageButton, SIGNAL(clicked()), this, SLOT(showPOPPage()));
+  connect(litterPageButton, SIGNAL(clicked()), this, SLOT(showLitterPage()));
+
   connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
 
   // When dataset is updated
   connect(this, SIGNAL(datasetUpdated(SampleDataset *)), samplesPage, SLOT(updateColumnWidths()));
   connect(this, SIGNAL(datasetUpdated(SampleDataset *)), homePage, SIGNAL(datasetUpdated()));
   connect(this, SIGNAL(datasetUpdated(SampleDataset *)), overviewPage, SLOT(updateDataset(SampleDataset *)));
+  connect(this, SIGNAL(datasetUpdated(SampleDataset *)), popPage, SLOT(updateDataset(SampleDataset *)));
 
   // Homepage cards clicked
   connect(homePage, SIGNAL(overviewCardClicked()), this, SLOT(showOverviewPage()));
@@ -237,4 +252,14 @@ void MainWindow::showOverviewPage()
 void MainWindow::showSamplesPage()
 {
   pages->setCurrentIndex(2);
+}
+
+void MainWindow::showPOPPage()
+{
+  pages->setCurrentIndex(3);
+}
+
+void MainWindow::showLitterPage()
+{
+  pages->setCurrentIndex(4);
 }
