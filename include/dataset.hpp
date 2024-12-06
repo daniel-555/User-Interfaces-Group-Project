@@ -18,6 +18,9 @@ public:
   std::vector<std::pair<std::string, int>> getCommonPollutants();
   std::vector<Sample *> getDeterminandSamples(const std::string &);
 
+  Sample *oldest();
+  Sample *newest();
+
   // Quake shallowest() const;
   // double meanDepth() const;
   // double meanMagnitude() const;
