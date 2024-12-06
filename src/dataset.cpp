@@ -90,3 +90,31 @@ vector<Sample *> SampleDataset::getDeterminandSamples(const string &determinand)
 
   return samples;
 }
+
+Sample *SampleDataset::newest()
+{
+  Sample *newest = &data[0];
+
+  for (auto &sample : data)
+  {
+    if (sample.getTime() > newest->getTime())
+    {
+      newest = &sample;
+    }
+  }
+  return newest;
+}
+
+Sample *SampleDataset::oldest()
+{
+  Sample *oldest = &data[0];
+
+  for (auto &sample : data)
+  {
+    if (sample.getTime() < oldest->getTime())
+    {
+      oldest = &sample;
+    }
+  }
+  return oldest;
+}
