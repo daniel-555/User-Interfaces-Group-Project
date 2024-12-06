@@ -29,7 +29,6 @@ void POPPage::createChart()
     xAxis = new QDateTimeAxis();
     xAxis->setTickCount(10);
     xAxis->setTitleText("Sample Date");
-    xAxis->setFormat("hh:mm:ss");
 
     yAxis = new QValueAxis();
     yAxis->setTitleText("Level (ug/l)");
@@ -76,8 +75,7 @@ void POPPage::updateDataset(SampleDataset *data)
 void POPPage::updateChart()
 {
     QLineSeries *series = new QLineSeries();
-    series->attachAxis(xAxis);
-    series->attachAxis(yAxis);
+    pcbLevelChart->removeAllSeries();
 
     std::string determinand = pcbType->currentText().toStdString();
     std::vector<Sample *> filteredSamples = dataset->getDeterminandSamples(determinand);
@@ -91,14 +89,20 @@ void POPPage::updateChart()
 
     for (const auto &sample : filteredSamples)
     {
-
-        // std::cout << "Determinand: " << sample->getDefinition() << " DateTime: " << sample->getTime() << " Result: " << sample->getResult() << std::endl;
         sampleTime = QDateTime::fromString(QString::fromStdString(sample->getTime()), "yyyy-MM-ddThh:mm:ss");
         series->append(sampleTime.toMSecsSinceEpoch(), sample->getResult());
         values.push_back(sample->getResult());
     }
 
+    QDateTime oldest = QDateTime::fromString(QString::fromStdString(filteredSamples.front()->getTime()), "yyyy-MM-ddthh:mm:ss");
+    QDateTime newest = QDateTime::fromString(QString::fromStdString(filteredSamples.back()->getTime()), "yyyy-MM-ddthh:mm:ss");
+
     pcbLevelChart->setTitle(pcbType->currentText());
 
     yAxis->setRange(0, *std::max_element(values.begin(), values.end()));
+    xAxis->setRange(oldest, newest);
+
+    pcbLevelChart->addSeries(series);
+    series->attachAxis(xAxis);
+    series->attachAxis(yAxis);
 }
