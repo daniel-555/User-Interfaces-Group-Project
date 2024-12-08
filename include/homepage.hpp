@@ -9,10 +9,10 @@ class HomePage : public QWidget
 {
     Q_OBJECT
 public:
-    HomePage(SampleDataset *);
+    HomePage();
 
 signals:
-    void datasetUpdated();
+    void datasetUpdated(SampleDataset *);
     void overviewCardClicked();
 
 private:

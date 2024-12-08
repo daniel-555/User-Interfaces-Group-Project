@@ -4,7 +4,7 @@
 #include "overviewcard.hpp"
 #include "dataset.hpp"
 
-OverviewCard::OverviewCard(SampleDataset *data) : dataset(data)
+OverviewCard::OverviewCard()
 {
     createWidgets();
     createChart();
@@ -64,4 +64,10 @@ void OverviewCard::updateChart()
     }
 
     chartData->setLabelsVisible(true);
+}
+
+void OverviewCard::datasetUpdated(SampleDataset *data)
+{
+    dataset = data;
+    updateChart();
 }
