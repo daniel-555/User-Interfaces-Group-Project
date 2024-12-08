@@ -19,6 +19,7 @@ qt_add_executable(pollutantsapp
     ${CMAKE_SOURCE_DIR}/src/stats.cpp
 
     ${CMAKE_SOURCE_DIR}/src/cards/overviewcard.cpp
+    ${CMAKE_SOURCE_DIR}/src/cards/POPcard.cpp
 
     ${CMAKE_SOURCE_DIR}/src/pages/homepage.cpp
     ${CMAKE_SOURCE_DIR}/src/pages/overviewpage.cpp
@@ -33,6 +34,7 @@ qt_add_executable(pollutantsapp
     ${CMAKE_SOURCE_DIR}/include/POPpage.hpp
     ${CMAKE_SOURCE_DIR}/include/litterpage.hpp
     ${CMAKE_SOURCE_DIR}/include/overviewcard.hpp
+    ${CMAKE_SOURCE_DIR}/include/POPcard.hpp
     ${CMAKE_SOURCE_DIR}/include/window.hpp
 )
 
