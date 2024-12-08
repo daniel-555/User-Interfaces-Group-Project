@@ -237,6 +237,7 @@ void MainWindow::makeConnections()
 
   // Homepage cards clicked
   connect(homePage, SIGNAL(overviewCardClicked()), this, SLOT(showOverviewPage()));
+  connect(homePage, SIGNAL(popCardClicked()), this, SLOT(showPOPPage()));
 }
 
 void MainWindow::showHomePage()
