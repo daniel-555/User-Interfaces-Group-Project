@@ -33,6 +33,9 @@ void HomePage::arrangeWidgets()
 void HomePage::makeConnections()
 {
     connect(this, SIGNAL(datasetUpdated(SampleDataset *)), overviewCard, SLOT(datasetUpdated(SampleDataset *)));
+<<<<<<< HEAD
     connect(this, SIGNAL(datasetUpdated(SampleDataset *)), popCard, SLOT(datasetUpdated(SampleDataset *)));
+=======
+>>>>>>> main
     connect(overviewCard, SIGNAL(clicked()), this, SIGNAL(overviewCardClicked()));
 }
