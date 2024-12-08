@@ -3,7 +3,7 @@
 #include "overviewcard.hpp"
 #include "dataset.hpp"
 
-HomePage::HomePage(SampleDataset *data) : dataset(data)
+HomePage::HomePage()
 {
     createWidgets();
     arrangeWidgets();
@@ -12,7 +12,7 @@ HomePage::HomePage(SampleDataset *data) : dataset(data)
 
 void HomePage::createWidgets()
 {
-    overviewCard = new OverviewCard(dataset);
+    overviewCard = new OverviewCard();
 }
 
 void HomePage::arrangeWidgets()
@@ -30,6 +30,6 @@ void HomePage::arrangeWidgets()
 
 void HomePage::makeConnections()
 {
-    connect(this, SIGNAL(datasetUpdated()), overviewCard, SLOT(updateChart()));
+    connect(this, SIGNAL(datasetUpdated(SampleDataset *)), overviewCard, SLOT(datasetUpdated(SampleDataset *)));
     connect(overviewCard, SIGNAL(clicked()), this, SIGNAL(overviewCardClicked()));
 }

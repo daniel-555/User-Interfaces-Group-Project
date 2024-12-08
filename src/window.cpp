@@ -34,7 +34,7 @@ MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
 
 void MainWindow::createMainWidget()
 {
-  homePage = new HomePage(&dataset);
+  homePage = new HomePage();
   overviewPage = new OverviewPage();
   samplesPage = new SamplesPage(&model);
   popPage = new POPPage();
@@ -231,7 +231,7 @@ void MainWindow::makeConnections()
 
   // When dataset is updated
   connect(this, SIGNAL(datasetUpdated(SampleDataset *)), samplesPage, SLOT(updateColumnWidths()));
-  connect(this, SIGNAL(datasetUpdated(SampleDataset *)), homePage, SIGNAL(datasetUpdated()));
+  connect(this, SIGNAL(datasetUpdated(SampleDataset *)), homePage, SIGNAL(datasetUpdated(SampleDataset *)));
   connect(this, SIGNAL(datasetUpdated(SampleDataset *)), overviewPage, SLOT(updateDataset(SampleDataset *)));
   connect(this, SIGNAL(datasetUpdated(SampleDataset *)), popPage, SLOT(updateDataset(SampleDataset *)));
 
