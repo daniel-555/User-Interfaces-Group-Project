@@ -18,13 +18,13 @@ signals:
     void clicked();
 
 public slots:
-    void updateChart();
     void datasetUpdated(SampleDataset *);
 
 private:
     void createWidgets();
     void arrangeWidgets();
     void createChart();
+    void updateChart();
 
     QLabel *title;
     QPushButton *showMore;

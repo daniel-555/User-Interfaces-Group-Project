@@ -74,4 +74,5 @@ void POPCard::updateChart()
 void POPCard::datasetUpdated(SampleDataset *data)
 {
     dataset = data;
+    updateChart();
 }
