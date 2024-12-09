@@ -16,25 +16,18 @@ POPPage::POPPage()
 void POPPage::createWidgets()
 {
     title = new QLabel("<h1>Persistent Organic Pollutants</h1>");
-
+    pcbTypeLabel = new QLabel("Please select a PCB type to display");
     pcbType = new QComboBox();
 }
 
 void POPPage::createChart()
 {
     pcbLevelChart = new QChart();
-
+    pcbLevelChart->legend()->hide();
     pcbLevelChart->setTitle("Please Select A PCB");
 
     xAxis = new QDateTimeAxis();
-    xAxis->setTickCount(10);
-    xAxis->setTitleText("Sample Date");
-
     yAxis = new QValueAxis();
-    yAxis->setTitleText("Level (ug/l)");
-    yAxis->setRange(0, 1);
-    yAxis->setTickCount(10);
-    yAxis->setLabelFormat("%.3f");
 
     pcbLevelChart->addAxis(xAxis, Qt::AlignBottom);
     pcbLevelChart->addAxis(yAxis, Qt::AlignLeft);
@@ -48,6 +41,7 @@ void POPPage::arrangeWidgets()
     QChartView *pcbLevelsView = new QChartView(pcbLevelChart);
 
     layout->addWidget(title);
+    layout->addWidget(pcbTypeLabel);
     layout->addWidget(pcbType);
     layout->addWidget(pcbLevelsView);
 
@@ -75,6 +69,7 @@ void POPPage::updateDataset(SampleDataset *data)
 void POPPage::updateChart()
 {
     QLineSeries *series = new QLineSeries();
+
     pcbLevelChart->removeAllSeries();
 
     std::string determinand = pcbType->currentText().toStdString();
@@ -97,7 +92,15 @@ void POPPage::updateChart()
     QDateTime oldest = QDateTime::fromString(QString::fromStdString(filteredSamples.front()->getTime()), "yyyy-MM-ddthh:mm:ss");
     QDateTime newest = QDateTime::fromString(QString::fromStdString(filteredSamples.back()->getTime()), "yyyy-MM-ddthh:mm:ss");
 
-    pcbLevelChart->setTitle(pcbType->currentText());
+    pcbLevelChart->setTitle(QString("A line chart to show the variations of %1 levels over time").arg(pcbType->currentText()));
+
+    xAxis->setTickCount(10);
+    xAxis->setFormat("dd-MM-yyyy");
+    xAxis->setTitleText("Sample Date");
+
+    yAxis->setTitleText("Level (ug/l)");
+    yAxis->setTickCount(10);
+    yAxis->setLabelFormat("%.3f");
 
     yAxis->setRange(0, *std::max_element(values.begin(), values.end()));
     xAxis->setRange(oldest, newest);

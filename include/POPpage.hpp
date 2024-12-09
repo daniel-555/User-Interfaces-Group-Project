@@ -28,6 +28,7 @@ private:
     void makeConnections();
 
     QLabel *title;
+    QLabel *pcbTypeLabel;
     QComboBox *pcbType;
 
     QChart *pcbLevelChart;
