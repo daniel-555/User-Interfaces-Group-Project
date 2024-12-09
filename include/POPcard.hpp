@@ -7,6 +7,8 @@ class QChart;
 class QBarSeries;
 class QPushButton;
 class SampleDataset;
+class QBarCategoryAxis;
+class QValueAxis;
 
 class POPCard : public QGroupBox
 {
@@ -31,6 +33,9 @@ private:
 
     QChart *barChart;
     QBarSeries *chartData;
+
+    QBarCategoryAxis *xAxis;
+    QValueAxis *yAxis;
 
     SampleDataset *dataset;
 };
