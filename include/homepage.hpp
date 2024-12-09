@@ -3,6 +3,7 @@
 #include <QWidget>
 
 class OverviewCard;
+class POPCard;
 class SampleDataset;
 
 class HomePage : public QWidget
@@ -14,6 +15,7 @@ public:
 signals:
     void datasetUpdated(SampleDataset *);
     void overviewCardClicked();
+    void popCardClicked();
 
 private:
     void createWidgets();
@@ -21,5 +23,6 @@ private:
     void makeConnections();
 
     OverviewCard *overviewCard;
+    POPCard *popCard;
     SampleDataset *dataset;
 };
