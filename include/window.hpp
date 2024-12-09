@@ -41,10 +41,13 @@ private:
   void addHelpMenu();
   void makeConnections();
 
-  QString dataLocation;     // location of CSV data files
-  QLabel *fileInfo;         // status bar info on current file
-  StatsDialog *statsDialog; // dialog to display stats
+  QString dataLocation; // location of CSV data files
+  QLabel *fileInfo;     // status bar info on current file
   QPushButton *loadButton;
+  QLabel *yearLabel;
+  QComboBox *datasetYear;
+  QLabel *regionLabel;
+  QComboBox *datasetRegion;
 
   QStackedWidget *pages;
   HomePage *homePage;
