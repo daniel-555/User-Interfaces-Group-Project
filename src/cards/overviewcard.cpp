@@ -39,31 +39,28 @@ void OverviewCard::arrangeWidgets()
 void OverviewCard::createChart()
 {
     pieChart = new QChart();
-    chartData = new QPieSeries();
 
     pieChart->legend()
         ->hide();
 
     pieChart->setTitle("10 Most Recorded Determinands");
-    pieChart->addSeries(chartData);
 }
 
 void OverviewCard::updateChart()
 {
-    int frequency = 0;
+    pieChart->removeAllSeries();
+    chartData = new QPieSeries();
 
     for (std::pair<std::string, int> determinand : dataset->getCommonPollutants())
     {
         QPieSlice *slice = new QPieSlice();
         slice->setLabel(QString::fromStdString(determinand.first));
         slice->setValue(determinand.second);
-
-        frequency += determinand.second;
-
         chartData->append(slice);
     }
 
     chartData->setLabelsVisible(true);
+    pieChart->addSeries(chartData);
 }
 
 void OverviewCard::datasetUpdated(SampleDataset *data)
