@@ -17,7 +17,7 @@ static const int MIN_WINDOW_WIDTH = 1000;
 static const int MIN_WINDOW_HEIGHT = 700;
 static const int MIN_TOOLBAR_WIDTH = 200;
 
-MainWindow::MainWindow() : QMainWindow(), statsDialog(nullptr)
+MainWindow::MainWindow() : QMainWindow()
 {
   createMainWidget();
   createFileSelectors();
@@ -53,15 +53,33 @@ void MainWindow::createMainWidget()
 
 void MainWindow::createFileSelectors()
 {
-  // QStringList significanceOptions;
-  // significanceOptions << "significant" << "4.5" << "2.5" << "1.0" << "all";
-  // significance = new QComboBox();
-  // significance->addItems(significanceOptions);
+  datasetYear = new QComboBox();
+  for (int i = 2024; i >= 2000; i--)
+  {
+    datasetYear->addItem(QString::fromStdString(std::to_string(i)));
+  }
 
-  // QStringList periodOptions;
-  // periodOptions << "hour" << "day" << "week" << "month";
-  // period = new QComboBox();
-  // period->addItems(periodOptions);
+  QStringList regionOptions;
+  regionOptions
+      << "Cambridgeshire and Bedfordshire"
+      << "Cumbria and Lancashire"
+      << "Derbyshire Nottinghamshire and Leicestershire"
+      << "Devon and Cornwall"
+      << "Essex Norfolk and Suffolk"
+      << "Greater Manchester Merseyside and Cheshire"
+      << "Hertfordshire and North London"
+      << "Kent and South London"
+      << "Lincolnshire and Northamptonshire"
+      << "Northumberland Durham and Tees"
+      << "Shropshire Herefordshire Worcestershire and Gloucestershire"
+      << "Solent and South Downs"
+      << "Staffordshire Warwickshire and West Midlands"
+      << "Wessex"
+      << "West Thames"
+      << "Yorkshire";
+
+  datasetRegion = new QComboBox();
+  datasetRegion->addItems(regionOptions);
 }
 
 void MainWindow::createButtons()
@@ -102,8 +120,14 @@ void MainWindow::createToolBar()
   QGroupBox *loadFileGroup = new QGroupBox();
   QVBoxLayout *loadFileLayout = new QVBoxLayout();
   QLabel *loadFileLabel = new QLabel(tr("<b>File Settings</b>"));
+  yearLabel = new QLabel(tr("Dataset Year"));
+  regionLabel = new QLabel(tr("Dataset Region"));
 
   loadFileLayout->addWidget(loadFileLabel);
+  loadFileLayout->addWidget(yearLabel);
+  loadFileLayout->addWidget(datasetYear);
+  loadFileLayout->addWidget(regionLabel);
+  loadFileLayout->addWidget(datasetRegion);
   loadFileLayout->addWidget(loadButton);
   loadFileLayout->addStretch();
   loadFileGroup->setLayout(loadFileLayout);
@@ -176,6 +200,24 @@ void MainWindow::openCSV()
 
   // auto filename = QString("%1_%2.csv")
   // .arg(significance->currentText()).arg(period->currentText());
+
+  std::vector<std::string> regionCodenames = {
+      "CB",
+      "CL",
+      "DNL",
+      "DC",
+      "ENS",
+      "GMMC",
+      "HNL",
+      "KSL",
+      "LN",
+      "NDT",
+      "SHWG",
+      "SSD",
+      "SWWM",
+      "W",
+      "WT",
+      "Y"};
 
   auto filename = QString("Y-2024.csv");
   auto path = dataLocation + "/" + filename;
