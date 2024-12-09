@@ -72,9 +72,11 @@ void POPPage::updateChart()
 
     pcbLevelChart->removeAllSeries();
 
+    // Fetch the new PCB type's samples
     std::string determinand = pcbType->currentText().toStdString();
     std::vector<Sample *> filteredSamples = dataset->getDeterminandSamples(determinand);
 
+    // Sort samples in ascending time order
     std::sort(filteredSamples.begin(), filteredSamples.end(), [](const auto &a, const auto &b)
               { return a->getTime() < b->getTime(); });
 
@@ -82,6 +84,7 @@ void POPPage::updateChart()
 
     std::vector<int> values;
 
+    // add each data point to the series
     for (const auto &sample : filteredSamples)
     {
         sampleTime = QDateTime::fromString(QString::fromStdString(sample->getTime()), "yyyy-MM-ddThh:mm:ss");
@@ -89,6 +92,7 @@ void POPPage::updateChart()
         values.push_back(sample->getResult());
     }
 
+    // fetch the oldest and newest sample dates
     QDateTime oldest = QDateTime::fromString(QString::fromStdString(filteredSamples.front()->getTime()), "yyyy-MM-ddthh:mm:ss");
     QDateTime newest = QDateTime::fromString(QString::fromStdString(filteredSamples.back()->getTime()), "yyyy-MM-ddthh:mm:ss");
 

@@ -55,10 +55,12 @@ void POPCard::updateChart()
     QStringList categories = {};
     QBarSet *frequencies = new QBarSet("PCB sample frequencies");
 
+    // Find determinands from the dataset containing PCB in their name
     for (std::string determinand : dataset->getDeterminands())
     {
         if (determinand.find("PCB") != std::string::npos)
         {
+            // Add the sample's frequency to the bar chart
             samples = dataset->getDeterminandSamples(determinand);
             categories.append(QString::fromStdString(determinand));
             frequencies->append(samples.size());
