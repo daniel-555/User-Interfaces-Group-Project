@@ -44,11 +44,20 @@ void POPCard::createChart()
     barChart->legend()
         ->hide();
 
+    xAxis = new QBarCategoryAxis();
+    barChart->addAxis(xAxis, Qt::AlignBottom);
+
+    yAxis = new QValueAxis();
+    barChart->addAxis(yAxis, Qt::AlignLeft);
+
     barChart->setTitle("Number of Samples From Each PCB Type");
 }
 
 void POPCard::updateChart()
 {
+    barChart->removeAllSeries();
+    chartData = new QBarSeries();
+
     std::vector<Sample *> samples;
     std::vector<int> freq;
 
@@ -70,14 +79,10 @@ void POPCard::updateChart()
     chartData->append(frequencies);
     barChart->addSeries(chartData);
 
-    QBarCategoryAxis *xAxis = new QBarCategoryAxis();
     xAxis->append(categories);
-    barChart->addAxis(xAxis, Qt::AlignBottom);
     chartData->attachAxis(xAxis);
 
-    QValueAxis *yAxis = new QValueAxis();
     yAxis->setRange(0, *std::max_element(freq.begin(), freq.end()));
-    barChart->addAxis(yAxis, Qt::AlignLeft);
     chartData->attachAxis(yAxis);
 }
 
