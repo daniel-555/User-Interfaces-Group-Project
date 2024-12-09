@@ -201,7 +201,7 @@ void MainWindow::openCSV()
   // auto filename = QString("%1_%2.csv")
   // .arg(significance->currentText()).arg(period->currentText());
 
-  std::vector<std::string> regionCodenames = {
+  std::vector<QString> regionCodenames = {
       "CB",
       "CL",
       "DNL",
@@ -219,7 +219,10 @@ void MainWindow::openCSV()
       "WT",
       "Y"};
 
-  auto filename = QString("Y-2024.csv");
+  auto filename = QString("%1-%2.csv")
+                      .arg(regionCodenames[datasetRegion->currentIndex()])
+                      .arg(datasetYear->currentText());
+  // auto filename = QString("Y-2024.csv");
   auto path = dataLocation + "/" + filename;
 
   try
