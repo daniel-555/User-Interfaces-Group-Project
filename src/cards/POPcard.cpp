@@ -24,12 +24,12 @@ void POPCard::arrangeWidgets()
 {
     QVBoxLayout *layout = new QVBoxLayout();
     QHBoxLayout *header = new QHBoxLayout();
-    QChartView *pieChartView = new QChartView(pieChart);
+    QChartView *barChartView = new QChartView(barChart);
 
     header->addWidget(title);
     header->addWidget(showMore);
     layout->addLayout(header);
-    layout->addWidget(pieChartView);
+    layout->addWidget(barChartView);
     layout->addWidget(showMore);
     layout->setAlignment(Qt::AlignTop);
 
@@ -38,37 +38,45 @@ void POPCard::arrangeWidgets()
 
 void POPCard::createChart()
 {
-    pieChart = new QChart();
-    chartData = new QPieSeries();
+    barChart = new QChart();
+    chartData = new QBarSeries();
 
-    pieChart->legend()
+    barChart->legend()
         ->hide();
 
-    pieChart->setTitle("PCB samples");
-    pieChart->addSeries(chartData);
+    barChart->setTitle("Number of Samples From Each PCB Type");
 }
 
 void POPCard::updateChart()
 {
-    int frequency = 0;
-
     std::vector<Sample *> samples;
-    QPieSlice *slice;
+    std::vector<int> freq;
+
+    QStringList categories = {};
+    QBarSet *frequencies = new QBarSet("PCB sample frequencies");
 
     for (std::string determinand : dataset->getDeterminands())
     {
         if (determinand.find("PCB") != std::string::npos)
         {
             samples = dataset->getDeterminandSamples(determinand);
-
-            slice = new QPieSlice();
-            slice->setLabel(QString::fromStdString(determinand));
-            slice->setValue(samples.size());
-            chartData->append(slice);
+            categories.append(QString::fromStdString(determinand));
+            frequencies->append(samples.size());
+            freq.push_back(samples.size());
         }
     }
+    chartData->append(frequencies);
+    barChart->addSeries(chartData);
 
-    chartData->setLabelsVisible(true);
+    QBarCategoryAxis *xAxis = new QBarCategoryAxis();
+    xAxis->append(categories);
+    barChart->addAxis(xAxis, Qt::AlignBottom);
+    chartData->attachAxis(xAxis);
+
+    QValueAxis *yAxis = new QValueAxis();
+    yAxis->setRange(0, *std::max_element(freq.begin(), freq.end()));
+    barChart->addAxis(yAxis, Qt::AlignLeft);
+    chartData->attachAxis(yAxis);
 }
 
 void POPCard::datasetUpdated(SampleDataset *data)

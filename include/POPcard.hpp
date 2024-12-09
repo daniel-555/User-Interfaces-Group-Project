@@ -4,7 +4,7 @@
 
 class QLabel;
 class QChart;
-class QPieSeries;
+class QBarSeries;
 class QPushButton;
 class SampleDataset;
 
@@ -29,8 +29,8 @@ private:
     QLabel *title;
     QPushButton *showMore;
 
-    QChart *pieChart;
-    QPieSeries *chartData;
+    QChart *barChart;
+    QBarSeries *chartData;
 
     SampleDataset *dataset;
 };
