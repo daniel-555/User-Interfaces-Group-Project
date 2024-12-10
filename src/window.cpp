@@ -1,4 +1,4 @@
-// COMP2811 Coursework 2 sample solution: main window
+// adapted from COMP2811 Coursework 2 sample solution: main window
 
 #include <QtWidgets>
 #include <stdexcept>
@@ -31,6 +31,7 @@ MainWindow::MainWindow() : QMainWindow()
   setWindowTitle(tr("Water Pollutants App"));
 }
 
+// Page creation
 void MainWindow::createMainWidget()
 {
   homePage = new HomePage();
@@ -50,6 +51,7 @@ void MainWindow::createMainWidget()
   setCentralWidget(pages);
 }
 
+// Load options into datasetYear and datasetRegion combo boxes
 void MainWindow::createFileSelectors()
 {
   datasetYear = new QComboBox();
@@ -187,6 +189,7 @@ void MainWindow::setDataLocation()
   }
 }
 
+// Ran when load button pressed
 void MainWindow::openCSV()
 {
   if (dataLocation == "")
