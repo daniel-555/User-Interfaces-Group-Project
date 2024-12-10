@@ -1,4 +1,4 @@
-// COMP2811 Coursework 2: application entry point
+// application entry point
 
 #include <QtWidgets>
 #include "window.hpp"

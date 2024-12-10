@@ -1,4 +1,4 @@
-// COMP2811 Coursework 1 sample solution: QuakeDataset class
+// Taken from COMP2811 Coursework 1 sample solution starter code
 
 #pragma once
 
@@ -20,10 +20,6 @@ public:
 
   Sample *oldest();
   Sample *newest();
-
-  // Quake shallowest() const;
-  // double meanDepth() const;
-  // double meanMagnitude() const;
 
 private:
   std::vector<Sample> data;

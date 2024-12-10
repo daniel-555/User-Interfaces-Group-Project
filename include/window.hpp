@@ -9,7 +9,6 @@ class QString;
 class QComboBox;
 class QLabel;
 class QPushButton;
-class StatsDialog;
 class QStackedWidget;
 
 class SamplesPage;
@@ -68,7 +67,6 @@ private:
 private slots:
   void setDataLocation();
   void openCSV();
-  void displayStats();
   void about();
 
   void showHomePage();
