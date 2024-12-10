@@ -197,9 +197,6 @@ void MainWindow::openCSV()
     return;
   }
 
-  // auto filename = QString("%1_%2.csv")
-  // .arg(significance->currentText()).arg(period->currentText());
-
   std::vector<QString> regionCodenames = {
       "CB",
       "CL",
@@ -221,7 +218,6 @@ void MainWindow::openCSV()
   auto filename = QString("%1-%2.csv")
                       .arg(regionCodenames[datasetRegion->currentIndex()])
                       .arg(datasetYear->currentText());
-  // auto filename = QString("Y-2024.csv");
   auto path = dataLocation + "/" + filename;
 
   try
@@ -237,29 +233,17 @@ void MainWindow::openCSV()
 
   fileInfo->setText(QString(tr("Current file: <kbd>%1</kbd>")).arg(filename));
 
+  // Send the signal to all child components that the dataset has been updated
   emit datasetUpdated(&dataset);
-
-  // samplesPage->updateColumnWidths();
-}
-
-void MainWindow::displayStats()
-{
-  // if (model.hasData()) {
-  //   if (statsDialog == nullptr) {
-  //     statsDialog = new StatsDialog(this);
-  //   }
-
-  //   statsDialog->show();
-  //   statsDialog->raise();
-  //   statsDialog->activateWindow();
-  // }
 }
 
 void MainWindow::about()
 {
   QMessageBox::about(this, tr("About Pollutants Tool"),
                      tr("Pollutants Tool displays and analyzes water pollutants data loaded from"
-                        "a CSV file produced by Defra's Water Quality Archive"));
+                        "a CSV file produced by Defra's Water Quality Archive"
+                        "\n\nCreated By:"
+                        "\nDaniel Spiers, Wei See, Cheuk Ho, Tommaso Chiti"));
 }
 
 void MainWindow::makeConnections()
