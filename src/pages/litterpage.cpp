@@ -8,6 +8,10 @@ LitterPage::LitterPage()
     createWidgets();
     createCharts();
     arrangeWidgets();
+
+    updatePlasticChart();
+    updateTarryChart();
+    updateSewageChart();
 }
 
 void LitterPage::createWidgets()
@@ -26,9 +30,11 @@ void LitterPage::createCharts()
 {
     plasticBarChart = new QChart();
     plasticBarChart->setTitle("Plastic Litter Bar Chart");
+    plasticBarChart->legend()->setAlignment(Qt::AlignBottom);
 
     tarryPieChart = new QChart();
     tarryPieChart->setTitle("Tarry Residues Pie Chart");
+    tarryPieChart->legend()->setAlignment(Qt::AlignRight);
 
     sewageBarChart = new QChart();
     sewageBarChart->setTitle("Sewage Debris Bar Chart");
@@ -76,14 +82,79 @@ void LitterPage::arrangeWidgets()
 
 void LitterPage::updatePlasticChart()
 {
+    auto set0 = new QBarSet("DANES DYKE");
+    auto set1 = new QBarSet("FRAISTHORPE");
+    auto set2 = new QBarSet("BRIDLINGTON");
+
+    *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 6 << 5 << 4 << 3 << 2 << 1;
+    *set1 << 5 << 0 << 0 << 4 << 0 << 7 << 4 << 2 << 6 << 0 << 1 << 4;
+    *set2 << 3 << 5 << 8 << 13 << 8 << 5 << 3 << 2 << 1 << 7 << 6 << 3;
+
+    QBarSeries *plasticData = new QBarSeries();
+    plasticData->append(set0);
+    plasticData->append(set1);
+    plasticData->append(set2);
+
+    plasticBarChart->addSeries(plasticData);
+
+    QStringList categories{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    auto xAxis = new QBarCategoryAxis;
+    xAxis->append(categories);
+    plasticBarChart->addAxis(xAxis, Qt::AlignBottom);
+    plasticData->attachAxis(xAxis);
+
+    auto yAxis = new QValueAxis;
+    yAxis->setRange(0, 15);
+    plasticBarChart->addAxis(yAxis, Qt::AlignLeft);
+    plasticData->attachAxis(yAxis);
 }
 
 void LitterPage::updateTarryChart()
 {
+    QPieSeries *tarryData = new QPieSeries();
+
+    std::vector<std::pair<QString, int>> data = {
+        {"CAYTON BAY", 11},
+        {"REIGHTON", 20},
+        {"HORNSEA", 20},
+        {"WHITBY", 21},
+        {"SANDSEND", 24},
+        {"FILEY", 6},
+        {"RUNSWICK BAY", 16}};
+
+    for (auto &s : data)
+    {
+        QPieSlice *slice = new QPieSlice(s.first, s.second);
+        tarryData->append(slice);
+    }
+
+    tarryPieChart->addSeries(tarryData);
 }
 
 void LitterPage::updateSewageChart()
 {
+    auto set0 = new QBarSet("KNARESBOROUGH");
+    auto set1 = new QBarSet("WILSTHORPE");
+
+    *set0 << 1 << 2 << 3 << 4 << 5 << 6;
+    *set1 << 5 << 0 << 0 << 4 << 0 << 7;
+
+    auto series = new QHorizontalBarSeries;
+    series->append(set0);
+    series->append(set1);
+
+    sewageBarChart->addSeries(series);
+
+    QStringList categories{"Jan", "Mar", "May", "Jul", "Sep", "Nov"};
+    auto yAxis = new QBarCategoryAxis;
+    yAxis->append(categories);
+    sewageBarChart->addAxis(yAxis, Qt::AlignLeft);
+    series->attachAxis(yAxis);
+
+    auto xAxis = new QValueAxis;
+    sewageBarChart->addAxis(xAxis, Qt::AlignBottom);
+    series->attachAxis(xAxis);
+    xAxis->applyNiceNumbers();
 }
 
 void LitterPage::updateDataset(SampleDataset *data)
