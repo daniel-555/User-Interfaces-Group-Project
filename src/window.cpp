@@ -4,7 +4,6 @@
 #include <stdexcept>
 #include <iostream>
 #include "window.hpp"
-#include "stats.hpp"
 #include "model.hpp"
 #include "dataset.hpp"
 #include "homepage.hpp"

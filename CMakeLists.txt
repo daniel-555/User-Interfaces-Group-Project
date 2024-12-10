@@ -16,7 +16,6 @@ qt_add_executable(pollutantsapp
     ${CMAKE_SOURCE_DIR}/src/dataset.cpp
     ${CMAKE_SOURCE_DIR}/src/model.cpp
     ${CMAKE_SOURCE_DIR}/src/window.cpp
-    ${CMAKE_SOURCE_DIR}/src/stats.cpp
 
     ${CMAKE_SOURCE_DIR}/src/cards/overviewcard.cpp
     ${CMAKE_SOURCE_DIR}/src/cards/POPcard.cpp
