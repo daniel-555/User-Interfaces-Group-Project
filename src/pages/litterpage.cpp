@@ -145,7 +145,7 @@ void LitterPage::updateSewageChart()
 
     sewageBarChart->addSeries(series);
 
-    QStringList categories{"Jan", "Mar", "May", "Jul", "Sep", "Nov"};
+    QStringList categories{"Nov", "Sep", "Jul", "May", "Mar", "Jan"};
     auto yAxis = new QBarCategoryAxis;
     yAxis->append(categories);
     sewageBarChart->addAxis(yAxis, Qt::AlignLeft);
